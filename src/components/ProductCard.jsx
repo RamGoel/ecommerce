@@ -10,7 +10,7 @@ function ProductCard({ data }) {
     const navigation = useNavigation()
     function handleClick() {
         dispatch(selectProduct(data))
-        navigation.navigate('Details')
+        navigation.navigate('Product Details')
     }
     return (
         <TouchableOpacity style={styles.container} onPress={() => {
@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         borderRadius: 10,
         padding: 10,
+        display:'flex',
+        flexDirection:'row',
         borderColor: '#121212',
         borderWidth: 0.3,
         marginVertical: 10,

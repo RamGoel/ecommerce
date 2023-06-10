@@ -19,14 +19,14 @@ function App() {
                         options={{headerShown:false}}
                     />
                     <Stack.Screen
-                        name="Details"
+                        name="Product Details"
                         component={ProductDetail}
-                        options={{headerShown:false}}
+                        // options={{headerShown:false}}
                     />
                     <Stack.Screen
-                        name="EditProduct"
+                        name="Edit Product"
                         component={EditProduct}
-                        options={{headerShown:false}}
+                        // options={{headerShown:false}}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

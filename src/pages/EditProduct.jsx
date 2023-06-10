@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View,Text, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Input from '../components/TextInput'
 import Button from '../components/Button'
@@ -55,10 +55,13 @@ function EditProduct() {
                                     )}
                             />
                         })}
+                        <View style={styles.btnBox}>
+
                         <Button
                             btnText={'Update'}
                             onClickHandler={() => handleSubmit()}
                         />
+                        </View>
                     </View>
                     : ''
             }
@@ -71,12 +74,18 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        height: windowHeight * 0.95
+        // height: windowHeight * 0.9
     },
     container: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    btnBox:{
+        ...this.cardRow,
+        height:windowHeight*0.29,
+        alignItems:'flex-end',
+        justifyContent:'flex-end'
     }
 })
 

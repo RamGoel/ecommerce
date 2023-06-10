@@ -31,6 +31,8 @@ function ProductDetail() {
 
                 </View>
             </View>
+            <View style={styles.contentBox}>
+
             <Text style={styles.title}>{data.title}</Text>
             <Text style={styles.brand}>by {data.brand}</Text>
             <View style={styles.cardRow}>
@@ -38,19 +40,21 @@ function ProductDetail() {
                 <View style={styles.priceRow}>
                     <Text style={styles.price}>{data.price}₹</Text>
                     <Text style={styles.dPrice}> {Math.round(getDiscountedPrice(data.price, data.discountPercentage))}₹</Text>
+                    <Text>  ({`${data.discountPercentage}% off`})</Text>
                 </View>
                 <Text style={styles.rating}>{data.rating}★</Text>
             </View>
             <Text style={styles.stock}>{data.stock} units available</Text>
-            <View style={styles.divider}></View>
+            {/* <View style={styles.divider}></View> */}
             <Text style={styles.desc}>{data.description}</Text>
-            <View style={styles.divider}></View>
+            {/* <View style={styles.divider}></View> */}
+            </View>
 
             <View style={styles.btnBox}>
                 <Button 
                     btnText={'Edit'} 
                     onClickHandler={()=>{
-                        navigation.navigate('EditProduct')
+                        navigation.navigate('Edit Product')
                     }}
                 />
             </View>
@@ -63,12 +67,12 @@ const styles = StyleSheet.create({
         width: windowWidth,
         backgroundColor: 'white',
         height: windowHeight,
-        padding:windowHeight*0.01
     },
     title: {
         fontSize: 25,
         fontWeight: 'bold',
-        height:windowHeight*0.04
+        height:windowHeight*0.04,
+        
     },
     brand: {
         fontSize: 18,
@@ -104,27 +108,28 @@ const styles = StyleSheet.create({
     },
     imgBox: {
         display: 'flex',
-        height: windowHeight * 0.5,
+        height: windowHeight * 0.4,
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom:windowHeight*0.01
     },
     thumbnail: {
         height: windowHeight * 0.3,
         width: '100%',
         objectFit: 'cover',
-        marginVertical: 10
     },
     iconBox: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        width: '100%'
+        width: '100%',
+        height:windowHeight*0.1,
     },
     icon: {
-        width: windowWidth * 0.23,
+        width:windowHeight*0.09,
         objectFit: 'contain',
-        height: windowWidth * 0.23
+        height: windowHeight * 0.09
     },
     cardRow: {
         display: 'flex',
@@ -139,17 +144,23 @@ const styles = StyleSheet.create({
         opacity: .4
     },
     stock: {
-        fontSize: 18
+        fontSize: 18,
+        height:windowHeight*0.03
     },
     desc: {
         fontSize: 15,
-        height:windowHeight*0.05
+        height:windowHeight*0.8,
+        marginVertical:windowHeight*0.01
     },
     btnBox: {
         ...this.cardRow,
-        height:windowHeight*0.18,
-        alignItems:'flex-end',
+        height:windowHeight*0.22,
+        alignItems:'center',
         justifyContent:'flex-end'
+    },
+    contentBox:{
+        height:windowHeight*0.25,
+        paddingHorizontal:windowWidth*0.03,
     }
 
 })
