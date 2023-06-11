@@ -10,6 +10,7 @@ import Input from '../components/TextInput'
 import { filterByCategory, searchProducts, setCategories, setProducts } from '../redux/slices/dataSlice'
 import Loader from '../components/Loader'
 import CategoryChip from '../components/CategoryChip'
+import NoResults from '../components/NoResults'
 function List() {
     const products = useSelector(state => state.data.products)
     const filtered = useSelector(state => state.data.filtered)
@@ -17,7 +18,7 @@ function List() {
     const [isLoaded, setLoaded] = useState(false)
     const [selected, setSelected] = useState('All')
     const dispatch = useDispatch()
-
+    var listShowCount = filtered.length;
     useEffect(e => {
         setLoaded(false)
         fetch(apiUrl).then(res => res.json()).then(result => {
@@ -26,7 +27,7 @@ function List() {
             console.log(err)
         })
         fetch(`${apiUrl}/categories`).then(res => res.json()).then(result => {
-            dispatch(setCategories(['All',...result]))
+            dispatch(setCategories(['All', ...result]))
             setLoaded(true)
         }).catch(err => {
             console.log(err)
@@ -35,18 +36,17 @@ function List() {
     }, [])
 
 
-    useEffect(e=>{
-        if(selected=='All'){
-            dispatch(filterByCategory({category:selected, isAll:true}))
-        }else{
-            dispatch(filterByCategory({category:selected, isAll:false}))
+    useEffect(e => {
+        if (selected == 'All') {
+            dispatch(filterByCategory({ category: selected, isAll: true }))
+        } else {
+            dispatch(filterByCategory({ category: selected, isAll: false }))
         }
-    },[selected])
+    }, [selected])
     return (
-        (isLoaded && products.length) ? <View>
+        (isLoaded && products.length) ? <View style={styles.page}>
             <Input
                 placeholder={'Search by name or category'}
-                isSearch={true}
                 onChangeHandler={(val) => {
                     dispatch(searchProducts(val))
                 }} />
@@ -55,7 +55,7 @@ function List() {
                     categories.length ? categories.map(e => {
                         return <CategoryChip
                             text={e}
-                            isSelected={(selected==e)}
+                            isSelected={(selected == e)}
                             handler={() => setSelected(e)} />
                     }) : null
                 }
@@ -63,8 +63,9 @@ function List() {
             <ScrollView contentContainerStyle={styles.list}>
                 {
                     filtered.length ? filtered.map((productObj, index) => {
-                        return  <ProductCard key={productObj.id} data={productObj} />
-                    }) : <Text>No Result Found</Text>
+                        return (index < listShowCount) && <ProductCard key={productObj.id} data={productObj} isLast={(listShowCount.length % 2 == 0) && (index == listShowCount - 1)} />
+                    }) : <NoResults />
+                    
                 }
             </ScrollView>
         </View> : <Loader />
@@ -72,21 +73,29 @@ function List() {
 }
 
 const styles = StyleSheet.create({
+    page:{
+        backgroundColor:'white'
+    },
     list: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         flexWrap: 'wrap',
-        paddingBottom:windowHeight*0.15,
-        justifyContent: 'flex-start'
+        paddingBottom: windowHeight * 0.2,
+        justifyContent: 'space-between',
+        backgroundColor: 'white',
+        width: windowWidth * 0.95,
+        marginLeft: 'auto',
+        marginRight: 'auto'
+
     },
     chipBox: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         height: windowHeight * 0.06,
-        paddingHorizontal:windowWidth*0.03,
-        marginBottom:10
+        paddingHorizontal: windowWidth * 0.03,
+        marginBottom: 10
     }
 
 })

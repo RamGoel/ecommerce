@@ -42,6 +42,7 @@ function EditProduct() {
             {
                 (Object.keys(data).length)
                     ? <View style={styles.container}>
+                        <View>
                         {Object.keys(data).map(key => {
                             return !excludedKeys.includes(key) && <Input
                                 placeholder={key}
@@ -62,6 +63,8 @@ function EditProduct() {
                             onClickHandler={() => handleSubmit()}
                         />
                         </View>
+                        </View>
+
                     </View>
                     : ''
             }
@@ -79,11 +82,12 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        height:windowHeight*0.9,
     },
     btnBox:{
         ...this.cardRow,
-        height:windowHeight*0.29,
+        height:windowHeight*0.2,
         alignItems:'flex-end',
         justifyContent:'flex-end'
     }

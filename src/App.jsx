@@ -7,7 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import ProductDetail from './pages/ProductDetails'
 import EditProduct from './pages/EditProduct'
-function App() {
+function Router() {
     const Stack = createNativeStackNavigator()
     return (
         <Provider store={store}>
@@ -35,4 +35,4 @@ function App() {
     )
 }
 
-export default App
+export default Router

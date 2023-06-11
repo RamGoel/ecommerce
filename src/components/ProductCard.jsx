@@ -5,15 +5,19 @@ import { windowHeight, windowWidth } from '../utils/constants'
 import { useDispatch } from 'react-redux'
 import { selectProduct } from '../redux/slices/dataSlice'
 import { useNavigation } from '@react-navigation/native';
-function ProductCard({ data }) {
+function ProductCard(props) {
     const dispatch = useDispatch()
+    const { data, isLast } = props
     const navigation = useNavigation()
     function handleClick() {
         dispatch(selectProduct(data))
         navigation.navigate('Product Details')
     }
     return (
-        <TouchableOpacity style={styles.container} onPress={() => {
+        <TouchableOpacity style={{
+            ...styles.container,
+            marginRight: isLast ? 'auto' : 0
+        }} onPress={() => {
             handleClick()
         }}>
             <View style={styles.content}>
@@ -21,7 +25,7 @@ function ProductCard({ data }) {
                     <Image
                         style={styles.thumbnail}
                         source={{ uri: data.thumbnail }} />
-                   
+
                 </View>
                 <Text style={styles.title}>{data.title}</Text>
                 <Text style={styles.brand}>by {data.brand}</Text>
@@ -42,22 +46,23 @@ function ProductCard({ data }) {
 const styles = StyleSheet.create({
     container: {
         width: windowWidth * 0.45,
-        height: windowHeight * 0.3,
-        backgroundColor: 'transparent',
+        backgroundColor: 'white',
         borderRadius: 10,
-        padding: 10,
-        display:'flex',
-        flexDirection:'row',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
         borderColor: '#121212',
         borderWidth: 0.3,
-        marginVertical: 10,
-        marginHorizontal: 10
+        marginVertical: windowHeight*0.01,
+        paddingVertical:windowHeight*0.015
     },
     content: {
-        height: windowHeight * 0.27
+        height: windowHeight * 0.27,
+        width: windowWidth * 0.38,
     },
     title: {
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 'bold'
     },
     brand: {
@@ -89,13 +94,15 @@ const styles = StyleSheet.create({
         fontSize: 10
     },
     imgBox: {
-        flex: 1,
+        display: 'flex',
+        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        textAlign: 'center',
     },
     thumbnail: {
-        height: windowHeight * 0.1,
-        width: windowHeight * 0.2,
+        height: windowHeight * 0.12,
+        width: windowWidth * 0.45,
         objectFit: 'cover',
         marginVertical: 10
     },

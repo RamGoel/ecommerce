@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { View, Text, StyleSheet, TextInput } from 'react-native'
-import { windowWidth } from '../utils/constants'
+import { windowHeight, windowWidth } from '../utils/constants'
 
 function Input({ placeholder, onChangeHandler, value, isSearch }) {
     return (
@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'center',
         marginVertical:10,
-        width:windowWidth*0.95
+        width:windowWidth*0.95,
+        height:windowHeight*0.07
     },
     searchInput: {
         paddingHorizontal: 10,
