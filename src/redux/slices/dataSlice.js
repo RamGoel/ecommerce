@@ -25,8 +25,12 @@ const dataSlice = createSlice({
                 return;
             } else {
                 var results = state.products.filter(obj => {
-                    return obj.title.includes(action.payload) || obj.category.includes(action.payload)
-                })
+                    return (
+                        obj.title.toLowerCase()
+                        .includes(action.payload.toLowerCase()) || 
+                        obj.category.toLowerCase()
+                        .includes(action.payload.toLowerCase())
+                )})
 
                 state.filtered = results
             }

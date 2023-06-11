@@ -15,8 +15,7 @@ const styles = StyleSheet.create({
         height:windowHeight*0.8,
         display:'flex',
         alignItems:'center',
-        justifyContent:'center',
-        
+        justifyContent:'center', 
     }
 })
 

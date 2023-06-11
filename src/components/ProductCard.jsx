@@ -27,7 +27,9 @@ function ProductCard(props) {
                         source={{ uri: data.thumbnail }} />
 
                 </View>
-                <Text style={styles.title}>{data.title}</Text>
+                <View style={styles.textContent}>
+
+                <Text style={styles.title}>{data.title.substring(0,25)}</Text>
                 <Text style={styles.brand}>by {data.brand}</Text>
                 <View style={styles.cardRow}>
 
@@ -38,6 +40,7 @@ function ProductCard(props) {
                     <Text style={styles.rating}>{data.rating}★</Text>
                 </View>
                 <Text style={styles.stock}>{data.stock} units available</Text>
+                </View>
             </View>
         </TouchableOpacity>
     )
@@ -55,10 +58,10 @@ const styles = StyleSheet.create({
         borderColor: '#121212',
         borderWidth: 0.3,
         marginVertical: windowHeight*0.01,
-        paddingVertical:windowHeight*0.015
+        // paddingVertical:windowHeight*0.015
     },
     content: {
-        height: windowHeight * 0.27,
+        height: windowHeight * 0.28,
         width: windowWidth * 0.38,
     },
     title: {
@@ -99,12 +102,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
+        backgroundColor:'red'
     },
     thumbnail: {
-        height: windowHeight * 0.12,
-        width: windowWidth * 0.45,
-        objectFit: 'cover',
-        marginVertical: 10
+        height: windowHeight * 0.14,
+        width: windowWidth * 0.445,
+        objectFit: 'contain',
+        borderTopLeftRadius:10,
+        borderTopRightRadius:10
     },
     iconBox: {
         display: 'flex',

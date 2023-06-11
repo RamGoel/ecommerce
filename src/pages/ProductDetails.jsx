@@ -42,7 +42,9 @@ function ProductDetail() {
                     <Text style={styles.dPrice}> {Math.round(getDiscountedPrice(data.price, data.discountPercentage))}₹</Text>
                     <Text>  ({`${data.discountPercentage}% off`})</Text>
                 </View>
-                <Text style={styles.rating}>{data.rating}★</Text>
+                <View style={styles.rating}>
+                <Text style={styles.ratingText}>{data.rating}★</Text>
+                </View>
             </View>
             <Text style={styles.stock}>{data.stock} units available</Text>
             {/* <View style={styles.divider}></View> */}
@@ -100,11 +102,15 @@ const styles = StyleSheet.create({
         width: '18%',
         textAlign: 'center',
         borderRadius: 100,
-        paddingHorizontal: 3,
-        paddingVertical: 3,
+        display:'flex',
+        flexDirection:"row",
+        alignItems:'center',
+        justifyContent:'center',
         fontSize: 15,
         height:windowHeight*0.03
-
+    },
+    ratingText:{
+        color:'white'
     },
     imgBox: {
         display: 'flex',
