@@ -43,7 +43,7 @@ const dataSlice = createSlice({
                 state.filtered=state.products
             }else{
                 var results = state.products.filter(obj => {
-                    return obj.category==(action.payload.category)
+                    return obj.category.toLowerCase()==(action.payload.category.toLowerCase())
                 })
 
                 state.filtered = results

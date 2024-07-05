@@ -16,25 +16,25 @@ function ProductDetail() {
                     style={styles.thumbnail}
                     source={{ uri: data.thumbnail }} />
                 <View style={styles.iconBox}>
-                    {data.images[0] && <Image
+                    {data.images[0] ? <Image
                         style={styles.icon}
-                        source={{ uri: data.images[0] }} />}
-                    {data.images[1] && <Image
+                        source={{ uri: data.images[0] }} />:null}
+                    {data.images[1] ? <Image
                         style={styles.icon}
-                        source={{ uri: data.images[1] }} />}
-                    {data.images[2] && <Image
+                        source={{ uri: data.images[1] }} />:null}
+                    {data.images[2] ? <Image
                         style={styles.icon}
-                        source={{ uri: data.images[2] }} />}
-                    {data.images[3] && <Image
+                        source={{ uri: data.images[2] }} />:null}
+                    {data.images[3] ? <Image
                         style={styles.icon}
-                        source={{ uri: data.images[3] }} />}
+                        source={{ uri: data.images[3] }} />:null}
 
                 </View>
             </View>
             <View style={styles.contentBox}>
 
             <Text style={styles.title}>{data.title}</Text>
-            <Text style={styles.brand}>by {data.brand}</Text>
+            {data?.brand!=="" &&<Text style={styles.brand}>by {data.brand}</Text>}
             <View style={styles.cardRow}>
 
                 <View style={styles.priceRow}>
@@ -43,7 +43,7 @@ function ProductDetail() {
                     <Text>  ({`${data.discountPercentage}% off`})</Text>
                 </View>
                 <View style={styles.rating}>
-                <Text style={styles.ratingText}>{data.rating}★</Text>
+                <Text style={styles.ratingText}>{data.rating.toFixed(1)}{' '}★</Text>
                 </View>
             </View>
             <Text style={styles.stock}>{data.stock} units available</Text>
@@ -84,7 +84,9 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        height:windowHeight*0.05
+        justifyContent:'flex-start',
+        height:windowHeight*0.05,
+        gap:5
     },
     price: {
         fontSize: 22,

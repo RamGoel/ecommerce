@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Text, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Input from '../components/TextInput'
 import Button from '../components/Button'
@@ -25,8 +25,8 @@ function EditProduct() {
         }).then(res => res.json()).then(result => {
             updateData(result)
         }).catch(err => {
-            throw (err)
             alert("Some Error Occusred")
+            throw (err)
         })
     }
 
@@ -47,16 +47,28 @@ function EditProduct() {
         setData(selectedProduct)
     }, [])
 
+    let getEditFields=(product)=>{
+        return({
+            title:product.title,
+            description:product.description,
+            category:product.category,
+            price:product.price,
+            discountPercentage:product.discountPercentage,
+            stock:product.stock,
+            brand:product.brand,
+            sku:product.sku,
+        })
+    }
+
     return (
-        <View style={styles.page}>
-            {
-                (Object.keys(data).length)
-                    ? <View style={styles.container}>
-                        <View>
-                            {Object.keys(data).map(key => {
-                                return !excludedKeys.includes(key) && <Input
+        Object.keys(getEditFields(data)).length)
+                    ? <ScrollView contentContainerStyle={styles.container}>
+                            {Object.keys(getEditFields(data)).map(key => {
+                               
+                                return <Input
                                     placeholder={key}
-                                    value={data[key].toString()}
+                                    key={key}
+                                    value={data[key]?.toString() || ""}
                                     onChangeHandler={
                                         (val) => setData(
                                             {
@@ -73,32 +85,22 @@ function EditProduct() {
                                     onClickHandler={() => handleSubmit()}
                                 />
                             </View>
-                        </View>
 
-                    </View>
-                    : ''
-            }
-        </View>
-    )
+                    </ScrollView>
+                    : null
+    
 }
 
 const styles = StyleSheet.create({
-    page: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        // height: windowHeight * 0.9
-    },
     container: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        display:'flex',
+        flexDirection:'column',
         height: windowHeight * 0.9,
     },
     btnBox: {
         ...this.cardRow,
-        height: windowHeight * 0.2,
-        alignItems: 'flex-end',
+        flexGrow:1,
+        alignItems: 'center',
         justifyContent: 'flex-end'
     }
 })

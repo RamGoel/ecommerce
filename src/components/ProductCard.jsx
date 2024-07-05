@@ -16,7 +16,7 @@ function ProductCard(props) {
     return (
         <TouchableOpacity style={{
             ...styles.container,
-            marginRight: isLast ? 'auto' : 0
+            marginRight: isLast ? 'auto' : 0,
         }} onPress={() => {
             handleClick()
         }}>
@@ -28,13 +28,13 @@ function ProductCard(props) {
 
                 </View>
                 <View style={styles.textContent}>
-
-                <Text style={styles.title}>{data.title.substring(0,25)}</Text>
+            
+                <Text style={styles.title} numberOfLines={2}>{data.title.substring(0,25)}</Text>
                 <Text style={styles.brand}>by {data.brand}</Text>
                 <View style={styles.cardRow}>
 
                     <View style={styles.priceRow}>
-                        <Text style={styles.price}>{data.price}₹</Text>
+                        <Text style={styles.price}>{data.price.toFixed(0)}₹</Text>
                         <Text style={styles.dPrice}> {Math.round(getDiscountedPrice(data.price, data.discountPercentage))}₹</Text>
                     </View>
                     <Text style={styles.rating}>{data.rating}★</Text>
@@ -61,12 +61,23 @@ const styles = StyleSheet.create({
         // paddingVertical:windowHeight*0.015
     },
     content: {
-        height: windowHeight * 0.28,
         width: windowWidth * 0.38,
+        height:windowHeight*0.3,
+        display:"flex",
+        flexDirection:"column",
+        paddingBottom:10
+    },
+    textContent:{
+        flexGrow:1,
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'flex-end',
+        alignItems:'flex-start',
     },
     title: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+
     },
     brand: {
         fontSize: 14
@@ -75,15 +86,17 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
+        flex:1,
+        justifyContent:'flex-start',
     },
     price: {
-        fontSize: 18,
+        fontSize: 16,
         textDecorationLine: 'line-through',
         textDecorationStyle: 'solid',
         color: 'red'
     },
     dPrice: {
-        fontSize: 18,
+        fontSize: 16,
         color: 'green'
     },
     rating: {
@@ -102,7 +115,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        backgroundColor:'red'
+        // backgroundColor:'red'
     },
     thumbnail: {
         height: windowHeight * 0.14,

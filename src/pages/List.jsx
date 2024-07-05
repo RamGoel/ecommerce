@@ -43,6 +43,8 @@ function List() {
             dispatch(filterByCategory({ category: selected, isAll: false }))
         }
     }, [selected])
+
+
     return (
         (isLoaded && products.length) ? <View style={styles.page}>
             <Input
@@ -54,9 +56,10 @@ function List() {
                 {
                     categories.length ? categories.map(e => {
                         return <CategoryChip
-                            text={e}
-                            isSelected={(selected == e)}
-                            handler={() => setSelected(e)} />
+                            key={e.name || e}
+                            text={e.name || e}
+                            isSelected={(selected == (e.name || e))}
+                            handler={() => setSelected(e.name || e)} />
                     }) : null
                 }
             </ScrollView>
